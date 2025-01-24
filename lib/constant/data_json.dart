@@ -5,7 +5,7 @@ List items = [
     "caption": "Angkor Wat at sunrise",
     "songName": "original sound - angkor",
     "profileImg":
-        "https://p16-sign-sg.tiktokcdn.com/aweme/1080x1080/tos-alisg-avt-0068/af998be6fb49423fa4dfe648da229722.jpeg",
+        "https://p16-tiktokcdn-com.akamaized.net/aweme/720x720/tiktok-obj/1664576339652610.jpeg",
     "likes": "1.5M",
     "comments": "18.9K",
     "shares": "80K",

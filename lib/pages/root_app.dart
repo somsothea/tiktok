@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:tiktok/pages/home_page.dart';
+import 'package:tiktok/pages/inbox.dart';
 import 'package:tiktok/theme/colors.dart';
 import 'package:tiktok/widgets/tik_tok_icons.dart';
 import 'package:tiktok/widgets/upload_icon.dart';
+import 'package:tiktok/pages/profile.dart';
+import 'package:tiktok/pages/friend_page.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RootApp extends StatefulWidget {
   const RootApp({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _RootAppState createState() => _RootAppState();
 }
 
 class _RootAppState extends State<RootApp> {
   int pageIndex = 0;
+  final ImagePicker _picker = ImagePicker(); // Create ImagePicker instance
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +32,7 @@ class _RootAppState extends State<RootApp> {
       index: pageIndex,
       children: <Widget>[
         HomePage(),
-        Center(
-          child: Text(
-            "Discover",
-            style: TextStyle(
-                color: black, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
+        FriendPage(),
         Center(
           child: Text(
             "Upload",
@@ -41,20 +40,8 @@ class _RootAppState extends State<RootApp> {
                 color: black, fontSize: 20, fontWeight: FontWeight.bold),
           ),
         ),
-        Center(
-          child: Text(
-            "All Activity",
-            style: TextStyle(
-                color: black, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Center(
-          child: Text(
-            "Profile",
-            style: TextStyle(
-                color: black, fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        )
+        InboxPage(),
+        ProfilePage(),
       ],
     );
   }
@@ -62,10 +49,10 @@ class _RootAppState extends State<RootApp> {
   Widget getFooter() {
     List bottomItems = [
       {"icon": TikTokIcons.home, "label": "Home", "isIcon": true},
-      {"icon": TikTokIcons.search, "label": "Discover", "isIcon": true},
+      {"icon": TikTokIcons.friends, "label": "Friends", "isIcon": true},
       {"icon": "", "label": "", "isIcon": false},
       {"icon": TikTokIcons.messages, "label": "Inbox", "isIcon": true},
-      {"icon": TikTokIcons.profile, "label": "Me", "isIcon": true}
+      {"icon": TikTokIcons.profile, "label": "Profile", "isIcon": true}
     ];
     return Container(
       height: 80,
@@ -103,7 +90,7 @@ class _RootAppState extends State<RootApp> {
                   )
                 : InkWell(
                     onTap: () {
-                      selectedTab(index);
+                      openCamera(); // Open camera on upload icon click
                     },
                     child: UploadIcon());
           }),
@@ -116,5 +103,19 @@ class _RootAppState extends State<RootApp> {
     setState(() {
       pageIndex = index;
     });
+  }
+
+  // Method to open the camera and pick a video
+  Future<void> openCamera() async {
+    try {
+      // Use ImagePicker to pick a video instead of an image
+      final XFile? video = await _picker.pickVideo(source: ImageSource.camera);
+      if (video != null) {
+        // Do something with the video, like displaying it or uploading it.
+        print('Picked video path: ${video.path}');
+      }
+    } catch (e) {
+      print('Error picking video: $e');
+    }
   }
 }

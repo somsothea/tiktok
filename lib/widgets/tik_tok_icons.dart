@@ -13,4 +13,5 @@ class TikTokIcons{
   static const IconData profile = const IconData(0xe80d, fontFamily: _fontFamily);
   static const IconData reply = const IconData(0xe80e, fontFamily: _fontFamily);
   static const IconData search = const IconData(0xe80f, fontFamily: _fontFamily);
+  static const IconData friends = const IconData(0xe80f, fontFamily: _fontFamily);
 }
